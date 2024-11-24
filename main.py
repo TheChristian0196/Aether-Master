@@ -70,15 +70,18 @@ async def build(ctx, building, region):
 	# check if the command is possible
 	if building not in buildings:
 		await ctx.reply(f"{building} doesnt exist", mention_author=False)
+		await ctx.message.add_reaction('❌')
 		return
 	# checking the price of the building after we make sure it exists
 	price=buildings[building]['price'][0] 
 
 	if price>available_gold:
 		await ctx.reply("no enough gold", mention_author=False)
+		await ctx.message.add_reaction('❌')
 		return
 	if region not in database[player]['regions']:
 		await ctx.reply("you dont own that region", mention_author=False)
+		await ctx.message.add_reaction('❌')
 		return
 	
 	# do the command and write to database
@@ -106,14 +109,17 @@ async def upgrade(ctx, building, region):
 	# check if the command is possible
 	if building not in buildings:
 		await ctx.reply(f"{building} doesnt exist", mention_author = False)
+		await ctx.message.add_reaction('❌')
 		return
 	price=buildings[building]['price'][1] # checking the price of the building after we make sure it exists
 
 	if price>available_gold:
 		await ctx.reply("no enough gold", mention_author = False)
+		await ctx.message.add_reaction('❌')
 		return
 	if region not in database[player]['regions']:
 		await ctx.reply("you dont own that region", mention_author = False)
+		await ctx.message.add_reaction('❌')
 		return
 	
 	# do the command and write to database
