@@ -1,47 +1,24 @@
 {
     "test_player_1": {
-        "gold": 14,
-        "food": 3,
+        "gold": 3,
+        "food": 0,
         "pop": 0,
-        "ore": 3,
-        "aether": 3,
+        "ore": 0,
+        "aether": 0,
         "mythical": 0,
         "regions": [
-            "P2"
+            "P1",
+            "P1",
+            "P1",
+            "P1"
         ],
-        "units": [],
+        "buildings": {},
         "orders": [
             {
-                "type": "build",
-                "region": "P1",
-                "building": "farm"
-            },
-            {
-                "type": "build",
-                "region": "P2",
-                "building": "farm"
-            },
-            {
-                "type": "move",
-                "text": "army A to p1"
-            },
-            {
-                "type": "move",
-                "text": "A, B, to P1"
-            },
-            {
                 "type": "attack",
-                "text": "p1 with amry A"
-            },
-            {
-                "type": "build",
-                "region": "P2",
-                "building": "market"
+                "text": "wiurcbriecb"
             }
-        ],
-        "buildings": {
-            "P1": []
-        }
+        ]
     },
     "test_player_2": {
         "gold": 0,
@@ -50,10 +27,8 @@
         "ore": 0,
         "aether": 0,
         "mythical": 0,
-        "regions": [
-            "P1"
-        ],
-        "units": [],
+        "regions": [],
+        "buildings": {},
         "orders": []
     },
     "test_player_3": {
@@ -64,7 +39,7 @@
         "aether": 0,
         "mythical": 0,
         "regions": [],
-        "units": [],
+        "buildings": {},
         "orders": []
     },
     "test_player_4": {
@@ -75,7 +50,7 @@
         "aether": 0,
         "mythical": 0,
         "regions": [],
-        "units": [],
+        "buildings": {},
         "orders": []
     },
     "test_player_5": {
@@ -86,7 +61,7 @@
         "aether": 0,
         "mythical": 0,
         "regions": [],
-        "units": [],
+        "buildings": {},
         "orders": []
     }
 }
