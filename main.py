@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 from functions import *
-from keep_alive import keep_alive
 
 client = commands.Bot(intents=discord.Intents.all(),
 	command_prefix='!',
@@ -148,8 +147,6 @@ async def stats(ctx):
 	aether=database[player]['aether']
 	mythical=database[player]['mythical']
 	regions=', '.join(database[player]['regions'])
-	# units=', '.join(database[player]['units'])
-	# orders_text=
 	n = 1
 	orders_txt = ""
 	for order in database[player]['orders']:
@@ -173,6 +170,14 @@ async def remove(ctx, index = 0):
 
 	# get the required data
 	database=read_db()
+	if not index.isdigit():
+		await ctx.reply(f"{index} is not a number", mention_author = False)
+		await ctx.message.add_reaction('❌')
+		return
+	if index > len(database[player]['orders']):
+		await ctx.reply(f"index out of range ({index})", mention_author = False)
+		await ctx.message.add_reaction('❌')
+		return
 	removed_orders = []
 	if index == -1:		
 		for _ in range(len(database[player]['orders'])):
