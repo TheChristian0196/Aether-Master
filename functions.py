@@ -1,5 +1,6 @@
 import json
 
+
 players=['test_player_1', 'test_player_2', 'test_player_3', 'test_player_4', 'test_player_5']
 
 def load_config():
@@ -52,6 +53,11 @@ def write_db(database):
 # 			'orders': [dict(order) for order in db[player]['orders']]
 # 		}
 	# database = db
+	# with open('players.json', 'w') as openfile:
+	# 	database=json.dumps(database, indent=4)
+	# 	openfile.write(database)
+	# 	openfile.close()
+
 	# with open('players.json', 'w') as openfile:
 	# 	database=json.dumps(database, indent=4)
 	# 	openfile.write(database)

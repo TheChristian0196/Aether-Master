@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 from functions import *
+from keep_alive import keep_alive
 
 client = commands.Bot(intents=discord.Intents.all(),
 	command_prefix='!',
@@ -290,14 +291,12 @@ async def attack(ctx, *args):
 	await ctx.message.add_reaction('👍')
 	return
 
-load_dotenv()
 
+load_dotenv()
 my_secret=str(os.getenv('discord_token'))
 
 # @client.command()
 # async def get_db(ctx):
 # 	print_db()
 
-# keep_alive()
-my_secret = str(os.environ['discord_token'])
 client.run(my_secret)
