@@ -4,7 +4,7 @@ import json
 players=['test_player_1', 'test_player_2', 'test_player_3', 'test_player_4', 'test_player_5']
 
 def load_config():
-	with open('config.json', 'r') as openfile:
+	with open('src/config.json', 'r') as openfile:
 	# Reading from json file
 		json_object = json.load(openfile)
 		openfile.close()
