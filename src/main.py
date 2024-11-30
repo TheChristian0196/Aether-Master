@@ -68,19 +68,20 @@ async def build(ctx, building, region):
 
 	# check if the command is possible
 	if building not in buildings:
-		await ctx.reply(f"{building} doesnt exist", mention_author=False)
+		
 		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"{building} doesnt exist", mention_author=False)
 		return
 	# checking the price of the building after we make sure it exists
 	price=buildings[building]['price'][0] 
 
-	if price>available_gold:
+	if price>available_gold:		
+		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author=False)
-		await ctx.message.add_reaction('❌')
 		return
-	if region not in database[player]['regions']:
-		await ctx.reply("you dont own that region", mention_author=False)
+	if region not in database[player]['regions']:		
 		await ctx.message.add_reaction('❌')
+		await ctx.reply("you dont own that region", mention_author=False)
 		return
 	
 	# do the command and write to database
@@ -105,19 +106,19 @@ async def upgrade(ctx, building, region):
 	available_gold=database[player]['gold']
 
 	# check if the command is possible
-	if building not in buildings:
-		await ctx.reply(f"{building} doesnt exist", mention_author = False)
+	if building not in buildings:		
 		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"{building} doesnt exist", mention_author = False)
 		return
 	price=buildings[building]['price'][1] # checking the price of the building after we make sure it exists
 
 	if price>available_gold:
+		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author = False)
-		await ctx.message.add_reaction('❌')
 		return
-	if region not in database[player]['regions']:
-		await ctx.reply("you dont own that region", mention_author = False)
+	if region not in database[player]['regions']:		
 		await ctx.message.add_reaction('❌')
+		await ctx.reply("you dont own that region", mention_author = False)
 		return
 	
 	# do the command and write to database
@@ -168,13 +169,13 @@ async def remove(ctx, index = 0):
 
 	# get the required data
 	database=read_db()
-	if not index.isdigit():
-		await ctx.reply(f"{index} is not a number", mention_author = False)
+	if not index.isdigit():		
 		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"{index} is not a number", mention_author = False)
 		return
 	if index > len(database[player]['orders']):
-		await ctx.reply(f"index out of range ({index})", mention_author = False)
 		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"index out of range ({index})", mention_author = False)		
 		return
 	removed_orders = []
 	if index == -1:		
@@ -306,7 +307,7 @@ async def reset_db(ctx):
 	database = read_db()
 
 	new_databse = reset_orders(database)
-	
+
 	write_db(new_databse)
 	await ctx.message.add_reaction('👍')
 	return
