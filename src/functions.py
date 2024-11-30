@@ -25,14 +25,14 @@ def check_roles(ctx, config):
 
 
 def read_db():
-	with open('players.json', 'r') as openfile:
+	with open('json_database/players.json', 'r') as openfile:
 	# Reading from json file
 		json_object = json.load(openfile)
 		openfile.close()
 	return json_object
 
 def write_db(database):
-	with open('players.json', 'w') as openfile:
+	with open('json_database/players.json', 'w') as openfile:
 		database=json.dumps(database, indent=4)
 		openfile.write(database)
 		openfile.close()
