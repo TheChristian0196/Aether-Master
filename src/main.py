@@ -48,8 +48,8 @@ async def on_ready():
 
 
 @client.command()
-async def test(ctx):
-	await ctx.channel.send('test')
+async def ping(ctx):
+	await ctx.channel.send('Pong!')
 
 @client.command()
 async def build(ctx, building, region):
@@ -88,7 +88,6 @@ async def build(ctx, building, region):
 	database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
 	write_db(database)
 	await ctx.message.add_reaction('👍')
-
 
 @client.command()
 async def upgrade(ctx, building, region):
@@ -159,7 +158,6 @@ async def stats(ctx):
 	await ctx.reply(final_msg, mention_author=False)
 	return
 
-
 @client.command()
 async def remove(ctx, index = 0):
 	# verify the player
@@ -197,6 +195,39 @@ async def remove(ctx, index = 0):
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 	return 
+
+@client.command()
+async def move(ctx, *args):
+	# verify the player
+	roles=check_roles(ctx, config)
+	if not roles[0] and not roles[1]:
+		return
+	# get the required data
+	player = roles[2]
+	database=read_db()
+
+	print(args)
+	database[player]['orders'].append({'type': 'move', 'text': " ".join(list(args))})
+	write_db(database)
+	await ctx.message.add_reaction('👍')
+	return
+
+@client.command()
+async def attack(ctx, *args):
+	# verify the player
+	roles=check_roles(ctx, config)
+	if not roles[0] and not roles[1]:
+		return
+	# get the required data
+	player = roles[2]
+	database=read_db()
+
+	print(args)
+	database[player]['orders'].append({'type': 'attack', 'text': " ".join(list(args))})
+	write_db(database)
+	await ctx.message.add_reaction('👍')
+	return
+
 
 @client.command()
 async def new_turn(ctx, turn):
@@ -264,35 +295,19 @@ async def change(ctx, region, player_1, player_2):
 	await ctx.message.add_reaction('👍')
 	return
 
-@client.command()
-async def move(ctx, *args):
-	# verify the player
-	roles=check_roles(ctx, config)
-	if not roles[0] and not roles[1]:
-		return
-	# get the required data
-	player = roles[2]
-	database=read_db()
-
-	print(args)
-	database[player]['orders'].append({'type': 'move', 'text': " ".join(list(args))})
-	write_db(database)
-	await ctx.message.add_reaction('👍')
-	return
 
 @client.command()
-async def attack(ctx, *args):
+async def reset_db(ctx):
 	# verify the player
 	roles=check_roles(ctx, config)
-	if not roles[0] and not roles[1]:
+	if not roles[0]:
 		return
 	# get the required data
-	player = roles[2]
-	database=read_db()
+	database = read_db()
 
-	print(args)
-	database[player]['orders'].append({'type': 'attack', 'text': " ".join(list(args))})
-	write_db(database)
+	new_databse = reset_orders(database)
+	
+	write_db(new_databse)
 	await ctx.message.add_reaction('👍')
 	return
 
