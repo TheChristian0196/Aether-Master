@@ -14,6 +14,7 @@ def load_config():
 def check_roles(ctx, config):
 	returning=[False, False, None]
 	for r in ctx.author.roles:
+		print(str(r))
 		if str(r).lower() == config['game_master_role']:
 			returning[0]=True
 		elif str(r).lower() == config['player_role']:
