@@ -139,7 +139,10 @@ async def stats(ctx):
 	database=read_db()
 
 	# make a stats message
-	final_msg=f"**{player}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
+	if config['player_flags'][player]['emoji_name'] == None:
+		final_msg=f"**{config['player_full_names'][player]}** \n\n"
+	else:
+		final_msg=f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
 	gold=database[player]['gold']
 	food=database[player]['food']
 	pop=database[player]['pop']
@@ -243,7 +246,10 @@ async def new_turn(ctx, turn):
 	for player in database:
 		gold = database[player]['gold']
 		food = database[player]['food']
-		finnal_txt += f"**{player}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n"
+		if config['player_flags'][player]['emoji_name'] == None:
+			finnal_txt += f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
+		else:
+			finnal_txt += f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n"
 		n = 1
 		
 		orders_txt = "**Orders:** \n"
