@@ -2,27 +2,27 @@
     "game_master_role": "game master man",
     "player_role": "player",
     "all_player_roles": [
-        "Varbin",
-        "ZurianEmpire",
-        "Jihad"
+        "varbin",
+        "zurianempire",
+        "jihad"
     ],
     "player_flags": {
-        "Varbin": {
+        "varbin": {
             "emoji_id": null,
             "emoji_name": null 
         }, 
-        "ZurianEmpire": {
+        "zurianempire": {
             "emoji_id": 1310333287616479382,
             "emoji_name": "ZurianEmpire"
         },
-        "Jihad": {
+        "jihad": {
             "emoji_id": null,
             "emoji_name": null
         }
     },
     "player_full_names": {
-        "Varbin": "Varbin's Wolf Pack",
-        "ZurianEmpire": "Zurian Empire",
-        "Jihad": "The Kingdom of Jihad"
+        "varbin": "Varbin's Wolf Pack",
+        "zurianempire": "Zurian Empire",
+        "jihad": "The Kingdom of Jihad"
     }
 }

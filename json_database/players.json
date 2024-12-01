@@ -1,5 +1,5 @@
 {
-    "Zuria": {
+    "zurianempire": {
         "gold": 300,
         "food": 3,
         "pop": 85,
@@ -10,7 +10,7 @@
         "buildings": {},
         "orders": []
     },
-    "Varbin": {
+    "varbin": {
         "gold": 300,
         "food": 23,
         "pop": 45,
@@ -21,7 +21,7 @@
         "buildings": {},
         "orders": []
     },
-    "Jihad": {
+    "jihad": {
         "gold": 300,
         "food": 10,
         "pop": 75,

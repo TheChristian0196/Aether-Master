@@ -45,11 +45,22 @@ config=load_config()
 @client.event
 async def on_ready():
 	print('online')
+	await client.change_presence(activity=discord.Game(name="!help"))
 
 
 @client.command()
 async def ping(ctx):
 	await ctx.channel.send('Pong!')
+
+@client.command()
+async def help(ctx):
+	help_msg = """
+	**PLAYER COMMANDS**
+	[] - marks a placeholder, dont write them in your commands \n- `build [building] [region]` \n- `upgrade [building] [region]` \n- `attack [order]` - the order doesnt have to follow a specific syntax \n- `move [order]` - the order doesnt have to follow a specific syntax \n- `stats` - returuns player stats \n- `remove [index]` - removes the order with the given index - \nindex 0 removes the most previous order - \nindex -1 removes all orders
+	"""
+
+	await ctx.reply(help_msg)
+
 
 @client.command()
 async def build(ctx, building, region):
@@ -317,6 +328,8 @@ async def reset_db(ctx):
 	write_db(new_databse)
 	await ctx.message.add_reaction('👍')
 	return
+
+
 
 
 load_dotenv()
