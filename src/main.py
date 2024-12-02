@@ -59,7 +59,7 @@ async def help(ctx):
 	[] - marks a placeholder, dont write them in your commands \n- `build [building] [regions]` - separate regions with spaces\n- `upgrade [building] [regions]` - separate regions with spaces \n- `attack [order]` - the order doesnt have to follow a specific syntax \n- `move [order]` - the order doesnt have to follow a specific syntax \n- `stats` - returuns player stats \n- `remove [index]` - removes the order with the given index - \nno index removes the most previous order - \nindex -1 removes all orders
 	"""
 
-	await ctx.reply(help_msg)
+	await ctx.reply(help_msg, mention_author = False)
 
 
 @client.command()
