@@ -261,7 +261,7 @@ async def attack(ctx, *args):
 
 
 @client.command()
-async def new_turn(ctx, turn):
+async def turn(ctx, turn):
 	# verify the GM
 	roles=check_roles(ctx, config)
 	if not roles[0]:
