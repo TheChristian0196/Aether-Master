@@ -4,7 +4,10 @@
     "all_player_roles": [
         "varbin",
         "zurianempire",
-        "jihad"
+        "jihad",
+        "jarlstaatofisalzpat",
+        "theimperọdraethofcryfwaladr"
+      
     ],
     "player_flags": {
         "varbin": {
@@ -18,11 +21,21 @@
         "jihad": {
             "emoji_id": null,
             "emoji_name": null
-        }
+        },
+        "jarlstaatofisalzpat": {
+            "emoji_id": 1256904517488742401,
+            "emoji_name": "misalzpat" 
+        }, 
+        "theimperọdraethofcryfwaladr": {
+            "emoji_id": 1266960627096883223,
+            "emoji_name": "ImperdraethofCryfwaladricon" 
+        } 
     },
     "player_full_names": {
         "varbin": "Varbin's Wolf Pack",
         "zurianempire": "Zurian Empire",
-        "jihad": "The Kingdom of Jihad"
+        "jihad": "The Kingdom of Jihad",
+        "theimperọdraethofcryfwaladr": "The Imperọdraeth of Cryfwaladr",
+        "jarlstaatofisalzpat": "Jarlstaat of Misalzpat"
     }
 }
