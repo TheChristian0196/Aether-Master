@@ -56,14 +56,14 @@ async def ping(ctx):
 async def help(ctx):
 	help_msg = """
 	**PLAYER COMMANDS**
-	[] - marks a placeholder, dont write them in your commands \n- `build [building] [region]` \n- `upgrade [building] [region]` \n- `attack [order]` - the order doesnt have to follow a specific syntax \n- `move [order]` - the order doesnt have to follow a specific syntax \n- `stats` - returuns player stats \n- `remove [index]` - removes the order with the given index - \nindex 0 removes the most previous order - \nindex -1 removes all orders
+	[] - marks a placeholder, dont write them in your commands \n- `build [building] [regions]` - separate regions with spaces\n- `upgrade [building] [regions]` - separate regions with spaces \n- `attack [order]` - the order doesnt have to follow a specific syntax \n- `move [order]` - the order doesnt have to follow a specific syntax \n- `stats` - returuns player stats \n- `remove [index]` - removes the order with the given index - \nno index removes the most previous order - \nindex -1 removes all orders
 	"""
 
 	await ctx.reply(help_msg)
 
 
 @client.command()
-async def build(ctx, building, region):
+async def build(ctx, building, *regions):
 
 	# verify the player
 	roles=check_roles(ctx, config)
@@ -72,37 +72,37 @@ async def build(ctx, building, region):
 	player=roles[2]
 
 	# get the required data
-	database=read_db()
-	region=region.upper()
+	database=read_db()	
 	building=building.lower()
 	available_gold=database[player]['gold']
 
 	# check if the command is possible
-	if building not in buildings:
-		
+	if building not in buildings:		
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"{building} doesnt exist", mention_author=False)
 		return
 	# checking the price of the building after we make sure it exists
-	price=buildings[building]['price'][0] 
+	price=buildings[building]['price'][0]*len(regions)
 
 	if price>available_gold:		
 		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author=False)
 		return
-	if region not in database[player]['regions']:		
-		await ctx.message.add_reaction('❌')
-		await ctx.reply("you dont own that region", mention_author=False)
-		return
+	for region in regions:
+		region=region.upper()
+		if region not in database[player]['regions']:		
+			await ctx.message.add_reaction('❌')
+			await ctx.reply("you dont own that region", mention_author=False)
+			return
+		database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
 	
 	# do the command and write to database
-	database[player]['gold'] -= price
-	database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
+	database[player]['gold'] -= price	
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 
 @client.command()
-async def upgrade(ctx, building, region):
+async def upgrade(ctx, building, *regions):
 
 	# verify the player
 	roles=check_roles(ctx, config)
@@ -111,8 +111,7 @@ async def upgrade(ctx, building, region):
 	player=roles[2]
 
 	# get the required data
-	database=read_db()
-	region=region.upper()
+	database=read_db()	
 	building=building.lower()
 	available_gold=database[player]['gold']
 
@@ -121,20 +120,22 @@ async def upgrade(ctx, building, region):
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"{building} doesnt exist", mention_author = False)
 		return
-	price=buildings[building]['price'][1] # checking the price of the building after we make sure it exists
+	price=buildings[building]['price'][1]*len(regions) # checking the price of the building after we make sure it exists
 
 	if price>available_gold:
 		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author = False)
 		return
-	if region not in database[player]['regions']:		
-		await ctx.message.add_reaction('❌')
-		await ctx.reply("you dont own that region", mention_author = False)
-		return
+	for region in regions:
+		region=region.upper()
+		if region not in database[player]['regions']:		
+			await ctx.message.add_reaction('❌')
+			await ctx.reply("you dont own  {region}", mention_author = False)
+			return
+		database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
 	
 	# do the command and write to database
 	database[player]['gold'] -= price
-	database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 
@@ -183,10 +184,13 @@ async def remove(ctx, index = 0):
 
 	# get the required data
 	database=read_db()
-	if not index.isdigit():		
+	try:
+		index = int(index)				
+	except Exception:
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"{index} is not a number", mention_author = False)
 		return
+
 	if index > len(database[player]['orders']):
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"index out of range ({index})", mention_author = False)		
