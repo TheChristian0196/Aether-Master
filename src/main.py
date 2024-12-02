@@ -69,6 +69,8 @@ async def build(ctx, building, *regions):
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
+	if roles[2] == None:
+		return
 	player=roles[2]
 
 	# get the required data
@@ -108,6 +110,8 @@ async def upgrade(ctx, building, *regions):
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
+	if roles[2] == None:
+		return
 	player=roles[2]
 
 	# get the required data
@@ -145,6 +149,8 @@ async def stats(ctx):
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
+	if roles[2] == None:
+		return
 	player=roles[2]
 
 	# get the required data
@@ -179,6 +185,8 @@ async def remove(ctx, index = 0):
 	# verify the player
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
+		return
+	if roles[2] == None:
 		return
 	player=roles[2]
 
@@ -221,6 +229,8 @@ async def move(ctx, *args):
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
+	if roles[2] == None:
+		return
 	# get the required data
 	player = roles[2]
 	database=read_db()
@@ -236,6 +246,8 @@ async def attack(ctx, *args):
 	# verify the player
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
+		return
+	if roles[2] == None:
 		return
 	# get the required data
 	player = roles[2]
