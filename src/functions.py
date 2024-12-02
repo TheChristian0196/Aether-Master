@@ -4,7 +4,7 @@ import json
 # players=['test_player_1', 'test_player_2', 'test_player_3', 'test_player_4', 'test_player_5']
 
 def load_config():
-	with open('src/config.json', 'r') as openfile:
+	with open('src/config.json', 'r', encoding="utf8") as openfile:
 	# Reading from json file
 		json_object = json.load(openfile)
 		openfile.close()
@@ -26,14 +26,14 @@ def check_roles(ctx, config):
 
 
 def read_db():
-	with open('json_database/players.json', 'r') as openfile:
+	with open('json_database/players.json', 'r', encoding="utf8") as openfile:
 	# Reading from json file
 		json_object = json.load(openfile)
 		openfile.close()
 	return json_object
 
 def write_db(database):
-	with open('json_database/players.json', 'w') as openfile:
+	with open('json_database/players.json', 'w', encoding="utf8") as openfile:
 		database=json.dumps(database, indent=4)
 		openfile.write(database)
 		openfile.close()
