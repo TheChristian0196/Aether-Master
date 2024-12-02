@@ -94,7 +94,7 @@ async def build(ctx, building, *regions):
 		region=region.upper()
 		if region not in database[player]['regions']:		
 			await ctx.message.add_reaction('❌')
-			await ctx.reply("you dont own {region}", mention_author=False)
+			await ctx.reply(f"you dont own {region}", mention_author=False)
 			return
 		database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
 	
@@ -134,7 +134,7 @@ async def upgrade(ctx, building, *regions):
 		region=region.upper()
 		if region not in database[player]['regions']:		
 			await ctx.message.add_reaction('❌')
-			await ctx.reply("you dont own {region}", mention_author = False)
+			await ctx.reply(f"you dont own {region}", mention_author = False)
 			return
 		database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
 	
