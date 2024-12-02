@@ -1,0 +1,57 @@
+{
+    "zurianempire": {
+        "gold": 300,
+        "food": 3,
+        "pop": 85,
+        "ore": 0,
+        "aether": 0,
+        "mythical": 0,
+        "regions": ["P42", "P45", "P46", "P115", "D48", "D47", "D46", "A34", "A26", "C50", "C59"],
+        "buildings": {},
+        "orders": []
+    },
+    "varbin": {
+        "gold": 300,
+        "food": 23,
+        "pop": 45,
+        "ore": 0,
+        "aether": 0,
+        "mythical": 0,
+        "regions": ["D1"],
+        "buildings": {},
+        "orders": []
+    },
+    "jihad": {
+        "gold": 300,
+        "food": 10,
+        "pop": 75,
+        "ore": 0,
+        "aether": 0,
+        "mythical": 0,
+        "regions": ["M3", "M4", "M5", "M6", "M7", "M8", "H7", "H8"],
+        "buildings": {},
+        "orders": []
+    },
+    "jarlstaatofisalzpat": {
+        "gold": 300,
+        "food": 10,
+        "pop": 75,
+        "ore": 0,
+        "aether": 0,
+        "mythical": 0,
+        "regions": ["M3", "M4", "M5", "M6", "M7", "M8", "H7", "H8"],
+        "buildings": {},
+        "orders": []
+    },
+    "theimperọdraethofcryfwaladr": {
+        "gold": 300,
+        "food": 10,
+        "pop": 75,
+        "ore": 0,
+        "aether": 0,
+        "mythical": 0,
+        "regions": ["M3", "M4", "M5", "M6", "M7", "M8", "H7", "H8"],
+        "buildings": {},
+        "orders": []
+    }
+}
