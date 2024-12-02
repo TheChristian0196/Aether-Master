@@ -167,7 +167,7 @@ async def stats(ctx):
 	ore=database[player]['ore']
 	aether=database[player]['aether']
 	mythical=database[player]['mythical']
-	regions=', '.join(database[player]['regions'])
+	regions=' '.join(database[player]['regions'])
 	n = 1
 	orders_txt = ""
 	for order in database[player]['orders']:
