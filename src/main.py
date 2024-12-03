@@ -259,14 +259,14 @@ async def attack(ctx, *args):
 
 
 @client.command()
-async def turn(ctx, turn):
+async def turn(ctx, turn = 0):
 	# verify the GM
 	roles=check_roles(ctx, config)
 	if not roles[0]:
 		return
 	# get the required data	
 	database=read_db()
-
+	txt_list = []
 	finnal_txt = f"**TURN {turn} RESULTS** \n\n"
 	for player in database:
 		gold = database[player]['gold']
@@ -291,7 +291,16 @@ async def turn(ctx, turn):
 				orders_txt += f"{n}.   **{order['type']}** {order['text']} \n"
 			n += 1
 		finnal_txt += f"{orders_txt}\n\n"
-	await ctx.channel.send(finnal_txt)
+		txt_list.append(finnal_txt)
+		finnal_txt = ""
+	txt_msg = txt_list[0]
+	for t in txt_list[1:]:
+		if len(txt_msg + t) > 1999:
+			await ctx.channel.send(txt_msg)
+			txt_msg = t
+		else:
+			txt_msg += t
+	await ctx.channel.send(txt_msg)
 
 
 @client.command()
