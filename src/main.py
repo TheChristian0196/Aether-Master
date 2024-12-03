@@ -235,7 +235,6 @@ async def move(ctx, *args):
 	player = roles[2]
 	database=read_db()
 
-	print(args)
 	database[player]['orders'].append({'type': 'move', 'text': " ".join(list(args))})
 	write_db(database)
 	await ctx.message.add_reaction('👍')
@@ -253,7 +252,6 @@ async def attack(ctx, *args):
 	player = roles[2]
 	database=read_db()
 
-	print(args)
 	database[player]['orders'].append({'type': 'attack', 'text': " ".join(list(args))})
 	write_db(database)
 	await ctx.message.add_reaction('👍')
@@ -353,6 +351,5 @@ my_secret=str(os.getenv('discord_token'))
 
 # @client.command()
 # async def get_db(ctx):
-# 	print_db()
 
 client.run(my_secret)
