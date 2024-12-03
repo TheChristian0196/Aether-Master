@@ -313,6 +313,7 @@ async def give(ctx, amount, resource, player):
 	database=read_db()
 
 	resource = resource.lower()
+	player = player.lower()
 	if resource not in database[player]:
 		await ctx.reply("wrong resource", mention_author = False)
 	database[player][resource] += int(amount)
