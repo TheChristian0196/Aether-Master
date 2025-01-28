@@ -181,7 +181,7 @@ async def upgrade(ctx, building, *regions):
 
 
 	# get the required data
-	database=read_db()
+	# database=read_db()
 	
 @client.command(aliases = ["s"])
 async def stats(ctx):
@@ -366,13 +366,13 @@ async def change(ctx, region, player_1, player_2 = None):
 	# verify the player
 	roles=check_roles(ctx, config)
 	if not roles[0]:
-	    return
+		return
 	# get the required data
 	database=read_db()
 
 	region = region.upper()
 	if player_2 != None:
-	    database[player_2]['regions'].remove(region)
+		database[player_2]['regions'].remove(region)
 	database[player_1]['regions'].append(region)
 	write_db(database)
 	await ctx.message.add_reaction('👍')
