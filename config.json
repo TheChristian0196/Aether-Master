@@ -1,0 +1,58 @@
+{
+    "game_master_role": "game master man",
+    "player_role": "player",
+    "all_player_roles": [
+        "oryalen", 
+        "dracovianempire", 
+        "arlstaatofmisalzpat", 
+        "vladivostokrweyeldzene",
+        "theeanapäristökanakara",
+        "derorden",
+        "zurianempire",
+        "skygarden",
+        "theimperọdraethofcryfwaladr",
+        "cylchoeddo'runmeddwl"
+    ],
+    "player_flags": {
+        "dracovianempire": {
+            "emoji_id": 1244702578944639187,
+            "emoji_name": "DracovianEmpire" 
+        }, 
+        "jarlstaatofmisalzpat": {
+            "emoji_id": 1256904517488742401,
+            "emoji_name": "misalzpat"
+        },
+        "vladivostokrweyeldzene": {
+            "emoji_id": 1235296615980339250,
+            "emoji_name": "Vladivostok_Rweyeldzene"
+        },
+        "theeanapäristökanakara": {
+            "emoji_id": 1244387382510485636,
+            "emoji_name": "EanapristKanakara"
+        },
+        "derorden": {
+            "emoji_id": 1235296573861265481,
+            "emoji_name": "Erdstern_Orden"
+        },
+        "oryalen": {
+            "emoji_id": 1333841394472845412,
+            "emoji_name": "oryalen"
+        },
+        "skygarden": {
+            "emoji_id": 1333841330303930482,
+            "emoji_name": "skygarden"
+        },
+        "zurianempire":{
+            "emoji_id": 1310333287616479382,
+            "emoji_name": "ZurianEmpire"
+        },
+        "theimperọdraethofcryfwaladr": {
+            "emoji_id": 1266960627096883223,
+            "emoji_name": "ImperdraethofCryfwaladricon"
+        },
+        "cylchoeddo'runmeddwl": {
+            "emoji_id":1256380614592958566,
+            "emoji_name": "Unmeddwl"
+        }
+    }
+}
