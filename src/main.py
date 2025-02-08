@@ -215,7 +215,7 @@ async def stats(ctx):
 			order_txt = f"{n}.   {order['type']} **{order['building']}** in **{order['region']}**\n"
 		elif order['type'] in ['attack', 'move']:
 			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
-		if len(final_messages[-1] + order_txt) > 1999:
+		if len(final_messages[-1]) + len(order_txt) > 1999:
 			final_messages.append(order_txt)
 		else:
 			final_messages[-1] += order_txt
