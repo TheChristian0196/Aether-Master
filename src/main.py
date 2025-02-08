@@ -198,7 +198,7 @@ async def stats(ctx):
 
 	# make a stats message
 	if config['player_flags'][player]['emoji_name'] == None:
-		final_msg=f"**{config['player_full_names'][player]}** \n\n"
+		final_messages = [f"**{config['player_full_names'][player]}** \n\n"]
 	else:
 		final_msg=f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
 	gold=database[player]['gold']
@@ -208,16 +208,21 @@ async def stats(ctx):
 	aether=database[player]['aether']
 	mythical=database[player]['mythical']
 	regions=' '.join(database[player]['regions'])
+	final_messages[-1] =+ f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:\n**"
 	n = 1
-	orders_txt = ""
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
-			orders_txt += f"{n}.   {order['type']} **{order['building']}** in **{order['region']}**\n"
+			order_txt = f"{n}.   {order['type']} **{order['building']}** in **{order['region']}**\n"
 		elif order['type'] in ['attack', 'move']:
-			orders_txt += f"{n}.  **{order['type']}** {order['text']}\n"
+			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
+		if len(final_messages[-1] + order_txt) > 1999:
+			final_messages.append(order_txt)
+		else:
+			final_messages[-1] += order_txt
 		n += 1
-	final_msg+=f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:\n** {orders_txt}"	
-	await ctx.reply(final_msg, mention_author=False)
+	await ctx.reply(final_messages[0], mention_author=False)
+	for msg in final_messages[1:]:
+		await ctx.channel.send(msg, mention_author=False)
 	return
 
 @client.command(aliases = ["r"])
