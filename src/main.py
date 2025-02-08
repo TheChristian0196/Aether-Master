@@ -200,7 +200,7 @@ async def stats(ctx):
 	if config['player_flags'][player]['emoji_name'] == None:
 		final_messages = [f"**{config['player_full_names'][player]}** \n\n"]
 	else:
-		final_messages = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
+		final_messages = [f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"]
 	gold=database[player]['gold']
 	food=database[player]['food']
 	pop=database[player]['pop']
