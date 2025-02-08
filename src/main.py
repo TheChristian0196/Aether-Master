@@ -200,7 +200,7 @@ async def stats(ctx):
 	if config['player_flags'][player]['emoji_name'] == None:
 		final_messages = [f"**{config['player_full_names'][player]}** \n\n"]
 	else:
-		final_msg=f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
+		final_messages = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"
 	gold=database[player]['gold']
 	food=database[player]['food']
 	pop=database[player]['pop']
@@ -208,7 +208,7 @@ async def stats(ctx):
 	aether=database[player]['aether']
 	mythical=database[player]['mythical']
 	regions=' '.join(database[player]['regions'])
-	final_messages[-1] =+ f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:\n**"
+	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:\n**"
 	n = 1
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
