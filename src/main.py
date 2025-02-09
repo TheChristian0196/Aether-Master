@@ -208,11 +208,11 @@ async def stats(ctx):
 	aether=database[player]['aether']
 	mythical=database[player]['mythical']
 	regions=' '.join(database[player]['regions'])
-	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:\n**"
+	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Regions:** {regions}\n**Orders:**\n"
 	n = 1
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
-			order_txt = f"{n}.  **{order['type']}** **{order['building']}** in **{order['region']}**\n"
+			order_txt = f"{n}.  {order['type']} **{order['building']}** in **{order['region']}**\n"
 		elif order['type'] in ['attack', 'move']:
 			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
 		if len(final_messages[-1]) + len(order_txt) > 1999:
