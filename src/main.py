@@ -198,9 +198,9 @@ async def stats(ctx):
 
 	# make a stats message
 	if config['player_flags'][player]['emoji_name'] == None:
-		final_messages = [f"**{config['player_full_names'][player]}** \n\n"]
+		final_messages = [f"**{config['player_full_names'][player]}**\n\n"]
 	else:
-		final_messages = [f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}> \n\n"]
+		final_messages = [f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n\n"]
 	gold=database[player]['gold']
 	food=database[player]['food']
 	pop=database[player]['pop']
@@ -212,7 +212,7 @@ async def stats(ctx):
 	n = 1
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
-			order_txt = f"{n}.   {order['type']} **{order['building']}** in **{order['region']}**\n"
+			order_txt = f"{n}.  {order['type']} **{order['building']}** in **{order['region']}**\n"
 		elif order['type'] in ['attack', 'move']:
 			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
 		if len(final_messages[-1]) + len(order_txt) > 1999:
