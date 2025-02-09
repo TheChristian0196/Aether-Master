@@ -212,7 +212,7 @@ async def stats(ctx):
 	n = 1
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
-			order_txt = f"{n}.  {order['type']} **{order['building']}** in **{order['region']}**\n"
+			order_txt = f"{n}.  **{order['type']}** **{order['building']}** in **{order['region']}**\n"
 		elif order['type'] in ['attack', 'move']:
 			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
 		if len(final_messages[-1]) + len(order_txt) > 1999:
