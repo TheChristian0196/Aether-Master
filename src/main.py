@@ -319,14 +319,13 @@ async def turn(ctx, turn = 0):
 		if config['player_flags'][player]['emoji_name'] == None:
 			txt = f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
 		else:
-			txt = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n"
+			txt = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n**Orders:** \n"
 		if len(txt_list[-1]) + len(txt) >1999:
 			txt_list.append(txt)
 		else:
 			txt_list[-1] += txt
 		n = 1
 		
-		orders_txt = "**Orders:** \n"
 		sorted_orders = []
 		order_types = ['build', 'upgrade', 'move', 'attack']
 		for type in order_types:
