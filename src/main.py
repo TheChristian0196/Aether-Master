@@ -311,15 +311,19 @@ async def turn(ctx, turn = 0):
 		return
 	# get the required data	
 	database=read_db()
-	txt_list = []
-	finnal_txt = f"**TURN {turn} RESULTS** \n\n"
+	txt_list = [f"**TURN {turn} RESULTS** \n\n"]
+	# finnal_txt = f"**TURN {turn} RESULTS** \n\n"
 	for player in database:
 		gold = database[player]['gold']
 		food = database[player]['food']
 		if config['player_flags'][player]['emoji_name'] == None:
-			finnal_txt += f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
+			txt = f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
 		else:
-			finnal_txt += f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n"
+			txt = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n"
+		if len(txt_list[-1]) + len(txt) >1999:
+			txt_list.append(txt)
+		else:
+			txt_list[-1] += txt
 		n = 1
 		
 		orders_txt = "**Orders:** \n"
@@ -331,21 +335,26 @@ async def turn(ctx, turn = 0):
 					sorted_orders.append(order)
 		for order in sorted_orders:
 			if order['type'] in ['upgrade', 'build']:
-				orders_txt += f"{n}.   {order['type']} **{order['building']}** in **{order['region']}** \n"
+				txt = f"{n}.   {order['type']} **{order['building']}** in **{order['region']}** \n"
 			if order['type'] in ['attack', 'move']:
-				orders_txt += f"{n}.   **{order['type']}** {order['text']} \n"
+				txt = f"{n}.   **{order['type']}** {order['text']} \n"
+			if len(txt_list[-1]) + len(txt) > 1999:
+				txt_list.append(txt)
+			else:
+				txt_list[-1] += txt
 			n += 1
-		finnal_txt += f"{orders_txt}\n\n"
-		txt_list.append(finnal_txt)
-		finnal_txt = ""
+		txt_list[-1] += "\n\n"
+		# txt_list.append(finnal_txt)
+		# finnal_txt = ""
 	txt_msg = txt_list[0]
+	await ctx.reply(txt_list[0])
 	for t in txt_list[1:]:
-		if len(txt_msg + t) > 1999:
-			await ctx.channel.send(txt_msg)
-			txt_msg = t
-		else:
-			txt_msg += t
-	await ctx.channel.send(txt_msg)
+		# if len(txt_msg + t) > 1999:
+		await ctx.channel.send(t)
+		# 	txt_msg = t
+		# else:
+		# 	txt_msg += t
+	# await ctx.channel.send(txt_msg)
 
 
 @client.command(aliases = ["g"])
