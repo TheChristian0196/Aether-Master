@@ -312,7 +312,6 @@ async def turn(ctx, turn = 0):
 	# get the required data	
 	database=read_db()
 	txt_list = [f"**TURN {turn} RESULTS** \n\n"]
-	# finnal_txt = f"**TURN {turn} RESULTS** \n\n"
 	for player in database:
 		gold = database[player]['gold']
 		food = database[player]['food']
@@ -343,17 +342,8 @@ async def turn(ctx, turn = 0):
 				txt_list[-1] += txt
 			n += 1
 		txt_list[-1] += "\n\n"
-		# txt_list.append(finnal_txt)
-		# finnal_txt = ""
-	txt_msg = txt_list[0]
-	await ctx.reply(txt_list[0])
-	for t in txt_list[1:]:
-		# if len(txt_msg + t) > 1999:
+	for t in txt_list:
 		await ctx.channel.send(t)
-		# 	txt_msg = t
-		# else:
-		# 	txt_msg += t
-	# await ctx.channel.send(txt_msg)
 
 
 @client.command(aliases = ["g"])
