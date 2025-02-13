@@ -341,7 +341,7 @@ async def turn(ctx, turn = 0):
 			else:
 				txt_list[-1] += txt
 			n += 1
-		txt_list[-1] += "**\n\n**"
+		txt_list[-1] += "\n\n"
 	for t in txt_list:
 		await ctx.channel.send(t)
 
