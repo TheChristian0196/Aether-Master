@@ -90,13 +90,17 @@ async def build(ctx, building, *regions):
 		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author=False)
 		return
+	notOwned = []
 	for region in regions:
 		region=region.upper()
-		if region not in database[player]['regions']:		
-			await ctx.message.add_reaction('❌')
-			await ctx.reply(f"you dont own {region}", mention_author=False)
-			return
-		database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
+		if region not in database[player]['regions']:
+			notOwned.append(region)
+		else:
+			database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
+	if len(notOwned) > 0:
+		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"you dont own {', '.join(notOwned)}", mention_author = False)
+		return
 	
 	# do the command and write to database
 	database[player]['gold'] -= price	
@@ -130,13 +134,17 @@ async def upgrade(ctx, building, *regions):
 		await ctx.message.add_reaction('❌')
 		await ctx.reply("no enough gold", mention_author = False)
 		return
+	notOwned = []
 	for region in regions:
 		region=region.upper()
-		if region not in database[player]['regions']:		
-			await ctx.message.add_reaction('❌')
-			await ctx.reply(f"you dont own {region}", mention_author = False)
-			return
-		database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
+		if region not in database[player]['regions']:	
+			notOwned.append(region)	
+		else:
+			database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
+	if len(notOwned) > 0:
+		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"you dont own {', '.join(notOwned)}", mention_author = False)
+		return
 	
 	# do the command and write to database
 	database[player]['gold'] -= price
