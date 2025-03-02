@@ -42,5 +42,10 @@ def reset_orders(database):
 
 	for player in database:
 		database[player]['orders'].clear()
+		database[player]['science'][0] = database[player]['science'][1]
+		for res in database[player]['research']:
+			database[player]['research'][res]['completed'] += database[player]['research'][res]['invested']
+			database[player]['research'][res]['invested'] = 0
+
 		
 	return database

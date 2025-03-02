@@ -251,7 +251,7 @@ async def research(ctx):
 	player = roles[2]
 	database=read_db()
 	current_research = database[player]['research']
-	fin = "**RESEARCHES IN PROGRESS\n\n**"
+	fin = "**RESEARCHES IN PROGRESS**\n\n"
 	res_text = None
 	for res in current_research:
 		if current_research[res]['invested'] != None:
@@ -306,6 +306,8 @@ async def remove(ctx, index = 0):
 		elif order_type == 'research':
 			database[player]['science'][0] += order['amount']
 			database[player]['research'][order['field']]['invested'] -= order['amount']
+			if database[player]['research'][order['field']]['invested'] == 0 and database[player]['research'][order['field']]['completed'] == 0:
+				del database[player]['research'][order['field']]
 
 	
 	write_db(database)
@@ -437,11 +439,15 @@ async def give(ctx, amount, resource, player):
 	# get the required data
 	database=read_db()
 
+	amount = int(amount)
 	resource = resource.lower()
 	player = player.lower()
 	if resource not in database[player]:
 		await ctx.reply("wrong resource", mention_author = False)
-	database[player][resource] += int(amount)
+	if resource == 'science':
+		database[player]['science'][0] += amount
+		database[player]['science'][1] += amount
+	database[player][resource] += amount
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 	return
@@ -473,10 +479,20 @@ async def reset_db(ctx):
 	# get the required data
 	database = read_db()
 
-	new_databse = reset_orders(database)
+	new_database = reset_orders(database)
+	research_text = ""
+	for player in new_database:
+		for res in new_database[player]['research']:
+			if new_database[player]['research'][res]['completed'] >= researches[res]['cost']:
+				research_text += f"{player} has completed researching {res}\n"
+				del new_database[player]['research'][res]
 
-	write_db(new_databse)
+
+
+	write_db(new_database)
 	await ctx.message.add_reaction('👍')
+	if research_text != "":
+		await ctx.reply(research_text)
 	return
 
 
