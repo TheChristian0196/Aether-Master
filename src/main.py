@@ -362,7 +362,7 @@ async def invest(ctx, amount, *field):
 		await ctx.reply(f"{field.upper()} doesnt exist", mention_author = False)
 		return
 	database=read_db()
-	if amount > database[player]['research'][0]:
+	if amount > database[player]['science'][0]:
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"No enough science", mention_author = False)
 		return
