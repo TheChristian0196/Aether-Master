@@ -220,7 +220,7 @@ async def stats(ctx):
 	mythical=database[player]['mythical']
 	science = database[player]['science']
 	regions=' '.join(database[player]['regions'])
-	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Science:**{science[0]} ({science[1]} per turn)\n**Regions:** {regions}\n**Orders:**\n"
+	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Science:** {science[0]} ({science[1]} per turn)\n**Regions:** {regions}\n**Orders:**\n"
 	n = 1
 	for order in database[player]['orders']:
 		if order['type'] in ['upgrade', 'build']:
@@ -261,7 +261,7 @@ async def research(ctx):
 		fin += res_text
 	if res_text == None:
 		fin += "No researches in progress"
-		
+
 	await ctx.reply(fin, mention_author=False)
 
 
@@ -356,7 +356,7 @@ async def invest(ctx, amount, *field):
 	# get the required data
 	player = roles[2]
 	amount = int(amount)
-
+	field = " ".join(field).lower()
 	if field not in researches:
 		await ctx.message.add_reaction('❌')
 		await ctx.reply(f"{field.upper()} doesnt exist", mention_author = False)
