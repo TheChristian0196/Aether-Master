@@ -254,10 +254,10 @@ async def research(ctx):
 	fin = "**RESEARCHES IN PROGRESS**\n\n"
 	res_text = None
 	for res in current_research:
-		if current_research[res]['invested'] != None:
-			res_text = f"**{res}:** {current_research[res]['researched']}/{researches[res]['cost']} + {current_research[res]['invested']}"
+		if current_research[res]['invested'] > 0:
+			res_text = f"**{res}:** {current_research[res]['researched']}/{researches[res]['cost']} + {current_research[res]['invested']}\n"
 		else:
-			res_text = f"**{res}:** {current_research[res]['researched']}/{researches[res]['cost']}"
+			res_text = f"**{res}:** {current_research[res]['researched']}/{researches[res]['cost']}\n"
 		fin += res_text
 	if res_text == None:
 		fin += "No researches in progress"
