@@ -304,7 +304,8 @@ async def remove(ctx, index = 0):
 		elif order_type == 'upgrade':
 			database[player]['gold'] += buildings[order['building']]['price'][1]
 		elif order_type == 'research':
-			database[player]['science'][0] += researches[order['field']]['cost']
+			database[player]['science'][0] += order['amount']
+			database[player]['researches'][order['field']]['invested'] -= order['amount']
 
 	
 	write_db(database)
@@ -370,6 +371,10 @@ async def invest(ctx, amount, *field):
 
 	database[player]['orders'].append({'type': 'research', 'field': field, 'amount': amount})
 	database[player]['science'][0] -= amount
+	if database[player]['researches'].get(field):
+		database[player]['researches'][field]['invested'] += amount
+	else:
+		database[player]['researches'][field] = {'researched': 0, 'invested': amount}
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 	return
