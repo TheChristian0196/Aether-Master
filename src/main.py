@@ -306,7 +306,7 @@ async def remove(ctx, index = 0):
 		elif order_type == 'research':
 			database[player]['science'][0] += order['amount']
 			database[player]['research'][order['field']]['invested'] -= order['amount']
-			if database[player]['research'][order['field']]['invested'] == 0 and database[player]['research'][order['field']]['completed'] == 0:
+			if database[player]['research'][order['field']]['invested'] == 0 and database[player]['research'][order['field']]['researched'] == 0:
 				del database[player]['research'][order['field']]
 
 	
@@ -483,7 +483,7 @@ async def reset_db(ctx):
 	research_text = ""
 	for player in new_database:
 		for res in new_database[player]['research']:
-			if new_database[player]['research'][res]['completed'] >= researches[res]['cost']:
+			if new_database[player]['research'][res]['researched'] >= researches[res]['cost']:
 				research_text += f"{player} has completed researching {res}\n"
 				del new_database[player]['research'][res]
 
