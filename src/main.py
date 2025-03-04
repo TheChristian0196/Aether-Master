@@ -59,15 +59,7 @@ async def ping(ctx):
 async def help(ctx):
 	help_msg = """
 	**PLAYER COMMANDS**
-	[] - marks a placeholder, dont write them in your commands
-	- `build [building] [regions]` - separate regions with spaces
-	- `upgrade [building] [regions]` - separate regions with spaces
-	- `attack [order]` - the order doesnt have to follow a specific syntax 
-	- `move [order]` - the order doesnt have to follow a specific syntax
-	- `stats` - returuns player stats
-	- `remove [index]` - removes the order with the given index - \nno index removes the most previous order - \nindex -1 removes all orders
-	- `invest [amount] [technology]` - invest science to research the technology
-	- `research` - shows researches in progress and your investments
+	[] - marks a placeholder, dont write them in your commands \n- `build [building] [regions]` - separate regions with spaces\n- `upgrade [building] [regions]` - separate regions with spaces \n- `attack [order]` - the order doesnt have to follow a specific syntax \n- `move [order]` - the order doesnt have to follow a specific syntax \n- `stats` - returuns player stats \n- `remove [index]` - removes the order with the given index - \nno index removes the most previous order - \nindex -1 removes all orders \n- `invest [amount] [technology]` - invest science to research the technology \n- `research` - shows researches in progress and your investments
 	"""
 
 	await ctx.reply(help_msg, mention_author = False)
