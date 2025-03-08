@@ -228,7 +228,7 @@ async def stats(ctx):
 		elif order['type'] in ['attack', 'move']:
 			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
 		elif order['type'] == 'research':
-			order_txt = f"{n}.  invest **{order['amount']}** into **{order['field']}**"
+			order_txt = f"{n}.  invest **{order['amount']}** into **{order['field']}**\n"
 		if len(final_messages[-1]) + len(order_txt) > 1999:
 			final_messages.append(order_txt)
 		else:
@@ -251,7 +251,7 @@ async def research(ctx):
 	player = roles[2]
 	database=read_db()
 	current_research = database[player]['research']
-	fin = "**RESEARCHES IN PROGRESS**\n\n"
+	fin = "**RESEARCH IN PROGRESS**\n\n"
 	res_text = None
 	for res in current_research:
 		if current_research[res]['invested'] > 0:
@@ -260,7 +260,7 @@ async def research(ctx):
 			res_text = f"**{res}:** {current_research[res]['researched']}/{researches[res]['cost']}\n"
 		fin += res_text
 	if res_text == None:
-		fin += "No researches in progress"
+		fin += "No research in progress"
 
 	await ctx.reply(fin, mention_author=False)
 
