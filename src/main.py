@@ -447,7 +447,8 @@ async def give(ctx, amount, resource, player):
 	if resource == 'science':
 		database[player]['science'][0] += amount
 		database[player]['science'][1] += amount
-	database[player][resource] += amount
+	else:
+		database[player][resource] += amount
 	write_db(database)
 	await ctx.message.add_reaction('👍')
 	return
