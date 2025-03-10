@@ -91,7 +91,7 @@ async def build(ctx, building, *regions):
 
 	if price>available_gold:		
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"no enough gold ({price}/{available_gold})", mention_author=False)
+		await ctx.reply(f"No enough gold ({price}/{available_gold})", mention_author=False)
 		return
 	notOwned = []
 	for region in regions:
@@ -102,7 +102,7 @@ async def build(ctx, building, *regions):
 			database[player]['orders'].append({'type': "build", 'region': region, 'building': building})
 	if len(notOwned) > 0:
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"you dont own {', '.join(notOwned)}", mention_author = False)
+		await ctx.reply(f"You dont own {', '.join(notOwned)}", mention_author = False)
 		return
 	
 	# do the command and write to database
@@ -367,7 +367,7 @@ async def invest(ctx, amount, *field):
 	database=read_db()
 	if amount > database[player]['science'][0]:
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"No enough science {amount}/{database[player]['science'][0]}", mention_author = False)
+		await ctx.reply(f"No enough science ({amount}/{database[player]['science'][0]})", mention_author = False)
 		return
 
 
