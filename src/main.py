@@ -91,7 +91,7 @@ async def build(ctx, building, *regions):
 
 	if price>available_gold:		
 		await ctx.message.add_reaction('❌')
-		await ctx.reply("no enough gold", mention_author=False)
+		await ctx.reply(f"no enough gold ({price}/{available_gold})", mention_author=False)
 		return
 	notOwned = []
 	for region in regions:
@@ -135,7 +135,7 @@ async def upgrade(ctx, building, *regions):
 
 	if price>available_gold:
 		await ctx.message.add_reaction('❌')
-		await ctx.reply("no enough gold", mention_author = False)
+		await ctx.reply(f"No enough gold ({price}/{available_gold})", mention_author = False)
 		return
 	notOwned = []
 	for region in regions:
@@ -146,7 +146,7 @@ async def upgrade(ctx, building, *regions):
 			database[player]['orders'].append({'type': "upgrade", "region": region, "building": building})
 	if len(notOwned) > 0:
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"you dont own {', '.join(notOwned)}", mention_author = False)
+		await ctx.reply(f"You dont own {', '.join(notOwned)}", mention_author = False)
 		return
 	
 	# do the command and write to database
@@ -287,7 +287,7 @@ async def remove(ctx, index = 0):
 
 	if index > len(database[player]['orders']):
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"index out of range ({index})", mention_author = False)		
+		await ctx.reply(f"Index out of range ({index})", mention_author = False)		
 		return
 	removed_orders = []
 	if index == -1:		
@@ -367,7 +367,7 @@ async def invest(ctx, amount, *field):
 	database=read_db()
 	if amount > database[player]['science'][0]:
 		await ctx.message.add_reaction('❌')
-		await ctx.reply(f"No enough science", mention_author = False)
+		await ctx.reply(f"No enough science {amount}/{database[player]['science'][0]}", mention_author = False)
 		return
 
 
@@ -443,7 +443,7 @@ async def give(ctx, amount, resource, player):
 	resource = resource.lower()
 	player = player.lower()
 	if resource not in database[player]:
-		await ctx.reply("wrong resource", mention_author = False)
+		await ctx.reply("Wrong resource", mention_author = False)
 	if resource == 'science':
 		database[player]['science'][0] += amount
 		database[player]['science'][1] += amount
