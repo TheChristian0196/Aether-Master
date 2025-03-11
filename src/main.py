@@ -206,6 +206,10 @@ async def stats(ctx, player=None):
 			await ctx.message.add_reaction('❌')
 			await ctx.reply(f"Couldnt identify the player", mention_author = False)
 			return
+	if player not in config['all_player_roles']:
+		await ctx.message.add_reaction('❌')
+		await ctx.reply(f"Couldnt identify the player", mention_author = False)
+		return
 
 	# get the required data
 	database=read_db()
