@@ -203,6 +203,8 @@ async def stats(ctx, player=None):
 	if player == None:
 		player = roles[2]
 		if player == None:
+			await ctx.message.add_reaction('❌')
+			await ctx.reply(f"Couldnt identify the player", mention_author = False)
 			return
 
 	# get the required data
