@@ -200,6 +200,8 @@ async def stats(ctx, player=None):
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
+	if not roles[0] and player != None:
+		player = None
 	if player == None:
 		player = roles[2]
 		if player == None:
