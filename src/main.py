@@ -201,7 +201,7 @@ async def stats(ctx, player=None):
 	if not roles[0] and not roles[1]:
 		return
 	if player == None:
-		player == roles[2]
+		player = roles[2]
 		if player == None:
 			return
 
