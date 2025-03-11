@@ -195,14 +195,15 @@ async def upgrade(ctx, building, *regions):
 	# database=read_db()
 	
 @client.command(aliases = ["s"])
-async def stats(ctx):
+async def stats(ctx, player=None):
 	# verify the player
 	roles=check_roles(ctx, config)
 	if not roles[0] and not roles[1]:
 		return
-	if roles[2] == None:
-		return
-	player=roles[2]
+	if player == None:
+		player == roles[2]
+		if player == None:
+			return
 
 	# get the required data
 	database=read_db()
