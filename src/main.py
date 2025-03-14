@@ -492,7 +492,7 @@ async def reset_db(ctx):
 	new_database = reset_orders(database)
 	research_text = ""
 	for player in new_database:
-		for res in new_database[player]['research']:
+		for res in new_database[player]['research'].copy():
 			if new_database[player]['research'][res]['researched'] >= researches[res]['cost']:
 				research_text += f"{player} has completed researching {res}\n"
 				del new_database[player]['research'][res]
