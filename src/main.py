@@ -397,9 +397,9 @@ async def turn(ctx, turn = 0):
 		# txt_list[-1] += "\n\n"
 	# final_messages = []
 	for player in database:
-		final_messages.append(make_stats(config, database, player, True))
-	for t in final_messages:
-		await ctx.channel.send(t)
+		final_messages += make_stats(config, database, player, True)
+	for msg in final_messages:
+		await ctx.channel.send(msg)
 
 
 @client.command(aliases = ["g"])

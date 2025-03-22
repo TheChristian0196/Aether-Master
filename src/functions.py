@@ -87,5 +87,5 @@ def make_stats(config, database, player, sort_orders = False):
 		else:
 			final_messages[-1] += order_txt
 		n += 1
-
+	final_messages[-1] += "\n\n"
 	return final_messages
