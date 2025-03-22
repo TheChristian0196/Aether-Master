@@ -49,3 +49,43 @@ def reset_orders(database):
 
 		
 	return database
+
+
+def make_stats(config, database, player, sort_orders = False):
+	if config['player_flags'][player]['emoji_name'] == None:
+		final_messages = [f"**{config['player_full_names'][player]}**\n\n"]
+	else:
+		final_messages = [f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n\n"]
+	gold=database[player]['gold']
+	food=database[player]['food']
+	pop=database[player]['pop']
+	ore=database[player]['ore']
+	aether=database[player]['aether']
+	mythical=database[player]['mythical']
+	science = database[player]['science']
+	regions=' '.join(database[player]['regions'])
+	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Science:** {science[0]} ({science[1]} per turn)\n**Regions:** {regions}\n**Orders:**\n"
+	if sort_orders:
+		sorted_orders = []
+		order_types = ['build', 'upgrade', 'move', 'attack', 'resesrch']
+		for type in order_types:
+			for order in database[player]['orders']:
+				if type == order['type']:
+					sorted_orders.append(order)
+	else:
+		sorted_orders = database[player]['orders']
+	n = 1
+	for order in sorted_orders:
+		if order['type'] in ['upgrade', 'build']:
+			order_txt = f"{n}.  {order['type']} **{order['building']}** in **{order['region']}**\n"
+		elif order['type'] in ['attack', 'move']:
+			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
+		elif order['type'] == 'research':
+			order_txt = f"{n}.  invest **{order['amount']}** into **{order['field']}**\n"
+		if len(final_messages[-1]) + len(order_txt) > 1999:
+			final_messages.append(order_txt)
+		else:
+			final_messages[-1] += order_txt
+		n += 1
+
+	return final_messages

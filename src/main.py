@@ -217,32 +217,8 @@ async def stats(ctx, player=None):
 	database=read_db()
 
 	# make a stats message
-	if config['player_flags'][player]['emoji_name'] == None:
-		final_messages = [f"**{config['player_full_names'][player]}**\n\n"]
-	else:
-		final_messages = [f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n\n"]
-	gold=database[player]['gold']
-	food=database[player]['food']
-	pop=database[player]['pop']
-	ore=database[player]['ore']
-	aether=database[player]['aether']
-	mythical=database[player]['mythical']
-	science = database[player]['science']
-	regions=' '.join(database[player]['regions'])
-	final_messages[-1] += f"**Gold:** {gold}\n**Food:** {food}\n**Pop:** {pop}\n**Ore:** {ore}\n**Aether:** {aether}\n**Mythical:** {mythical}\n**Science:** {science[0]} ({science[1]} per turn)\n**Regions:** {regions}\n**Orders:**\n"
-	n = 1
-	for order in database[player]['orders']:
-		if order['type'] in ['upgrade', 'build']:
-			order_txt = f"{n}.  {order['type']} **{order['building']}** in **{order['region']}**\n"
-		elif order['type'] in ['attack', 'move']:
-			order_txt = f"{n}.  **{order['type']}** {order['text']}\n"
-		elif order['type'] == 'research':
-			order_txt = f"{n}.  invest **{order['amount']}** into **{order['field']}**\n"
-		if len(final_messages[-1]) + len(order_txt) > 1999:
-			final_messages.append(order_txt)
-		else:
-			final_messages[-1] += order_txt
-		n += 1
+	final_messages = make_stats(config, database, player, False)
+	
 	await ctx.reply(final_messages[0], mention_author=False)
 	for msg in final_messages[1:]:
 		await ctx.channel.send(msg, mention_author=False)
@@ -404,38 +380,25 @@ async def turn(ctx, turn = 0):
 		return
 	# get the required data	
 	database=read_db()
-	txt_list = [f"**TURN {turn} RESULTS** \n\n"]
-	for player in database:
-		gold = database[player]['gold']
-		food = database[player]['food']
-		if config['player_flags'][player]['emoji_name'] == None:
-			txt = f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
-		else:
-			txt = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n**Orders:** \n"
-		if len(txt_list[-1]) + len(txt) >1999:
-			txt_list.append(txt)
-		else:
-			txt_list[-1] += txt
-		n = 1
+	final_messages = [f"**TURN {turn} RESULTS** \n\n"]
+	# for player in database:
+		# gold = database[player]['gold']
+		# food = database[player]['food']
+		# if config['player_flags'][player]['emoji_name'] == None:
+		# 	txt = f"**{config['player_full_names'][player]}**     \n**Gold:** {gold}\n**Food:** {food}\n"
+		# else:
+		# 	txt = f"**{config['player_full_names'][player]}**     <:{config['player_flags'][player]['emoji_name']}:{config['player_flags'][player]['emoji_id']}>\n**Gold:** {gold}\n**Food:** {food}\n**Orders:** \n"
+		# if len(txt_list[-1]) + len(txt) >1999:
+		# 	txt_list.append(txt)
+		# else:
+		# 	txt_list[-1] += txt
 		
-		sorted_orders = []
-		order_types = ['build', 'upgrade', 'move', 'attack']
-		for type in order_types:
-			for order in database[player]['orders']:
-				if type == order['type']:
-					sorted_orders.append(order)
-		for order in sorted_orders:
-			if order['type'] in ['upgrade', 'build']:
-				txt = f"{n}.   {order['type']} **{order['building']}** in **{order['region']}** \n"
-			if order['type'] in ['attack', 'move']:
-				txt = f"{n}.   **{order['type']}** {order['text']} \n"
-			if len(txt_list[-1]) + len(txt) > 1999:
-				txt_list.append(txt)
-			else:
-				txt_list[-1] += txt
-			n += 1
-		txt_list[-1] += "\n\n"
-	for t in txt_list:
+			# n += 1
+		# txt_list[-1] += "\n\n"
+	# final_messages = []
+	for player in database:
+		final_messages.append(make_stats(config, database, player, True))
+	for t in final_messages:
 		await ctx.channel.send(t)
 
 
